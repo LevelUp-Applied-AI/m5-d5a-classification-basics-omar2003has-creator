@@ -1,34 +1,29 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/5tAVBFVB)
-# Core Skills Drill 5A — Classification & Evaluation Basics
+# Telecom Customer Churn Prediction
 
-Module 5 Week A drill for AI.SPIRE Applied AI & ML Systems.
+##  Project Overview
+This project focuses on building a classification pipeline to predict **Customer Churn**. The goal is to identify customers likely to leave the service based on their usage patterns and account information, allowing the company to take proactive retention measures.
 
-## Setup
+##  The Approach (Implementation Details)
 
-```bash
-pip install -r requirements.txt
-```
+### 1. Data Engineering & Stratified Splitting
+* **Feature Selection:** Filtered the dataset to focus on numerical attributes (such as `tenure`, `monthly_charges`, and `total_charges`) to ensure mathematical compatibility with the model.
+* **Balanced Partitioning:** Used **Stratified Splitting** (80% Train / 20% Test) to ensure that both sets maintain the same ratio of "Churn" vs "No-Churn" as the original dataset, preventing biased training.
 
-This installs scikit-learn for the first time in this course.
+### 2. Model Training & Evaluation
+* **Algorithm:** Implemented **Logistic Regression** with the `class_weight="balanced"` parameter. This is crucial for handling imbalanced data, as it gives more weight to the minority class (customers who churned).
+* **Evaluation Metrics:** The model was evaluated using a comprehensive suite of metrics:
+    * **Accuracy:** To measure overall correctness.
+    * **Recall:** To ensure we capture as many actual churners as possible.
+    * **Precision:** To measure the reliability of the churn predictions.
+    * **F1-Score:** To find the harmonic mean between Precision and Recall.
 
-## Tasks
+### 3. Model Reliability (Cross-Validation)
+* **K-Fold Validation:** To ensure the results weren't just a "lucky split," we performed **5-Fold Stratified Cross-Validation**.
+* **Stability Check:** Calculated the **Mean** and **Standard Deviation** of the scores. A low standard deviation confirms that the model is stable and performs consistently across different data segments.
 
-Complete the three functions in `drill.py`:
-1. `split_data` — Split data with stratification
-2. `compute_classification_metrics` — Calculate accuracy, precision, recall, F1
-3. `run_cross_validation` — Run 5-fold stratified CV
+##  Results Summary
+Based on the latest execution:
+* **Accuracy:** ~63.7%
+* **Recall:** ~51% (Successfully identifies over half of the potential churners).
+* **Model Stability:** The very low standard deviation (±0.022) proves the model is reliable and not prone to overfitting.
 
-## Submission
-
-1. Create a branch: `drill-5a-classification-basics`
-2. Complete `drill.py`
-3. Open a PR to `main`
-4. Paste your PR URL into TalentLMS → Module 5 Week A → Drill 5A
-
----
-
-## License
-
-This repository is provided for educational use only. See [LICENSE](LICENSE) for terms.
-
-You may clone and modify this repository for personal learning and practice, and reference code you wrote here in your professional portfolio. Redistribution outside this course is not permitted.
